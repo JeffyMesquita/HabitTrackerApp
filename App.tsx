@@ -13,14 +13,10 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <Text preset="headingLarge">Hello World!</Text>
-      <Text
-        preset="headingMedium"
-        style={{
-          fontFamily: 'Kanit-Bold',
-        }}>
+      <Text preset="headingLarge" italic bold>
         Hello World!
       </Text>
+      <Text preset="headingMedium">Hello World!</Text>
     </SafeAreaView>
   );
 }

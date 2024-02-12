@@ -7,19 +7,57 @@ import {
 
 interface TextProps extends RNTextProps {
   preset?: TextVariants;
+  bold?: boolean;
+  italic?: boolean;
+  semiBold?: boolean;
 }
 
 export function Text({
   children,
   preset = 'paragraphMedium',
+  bold,
+  italic,
+  semiBold,
   style,
   ...rest
 }: TextProps) {
+  const fontFamily = getFontFamily(preset, bold, italic, semiBold);
+
   return (
-    <RNText style={[$fontSizes[preset], style]} {...rest}>
+    <RNText style={[$fontSizes[preset], {fontFamily}, style]} {...rest}>
       {children}
     </RNText>
   );
+}
+
+function getFontFamily(
+  preset: TextVariants,
+  bold?: boolean,
+  italic?: boolean,
+  semiBold?: boolean,
+) {
+  if (
+    preset === 'headingLarge' ||
+    preset === 'headingMedium' ||
+    preset === 'headingSmall'
+  ) {
+    return italic ? $fontFamily.boldItalic : $fontFamily.bold;
+  }
+
+  switch (true) {
+    case bold && italic:
+      return $fontFamily.boldItalic;
+    case bold:
+      return $fontFamily.bold;
+    case semiBold && italic:
+      return $fontFamily.semiBoldItalic;
+    case semiBold:
+      return $fontFamily.semiBold;
+    case italic:
+      return $fontFamily.italic;
+    default:
+      return $fontFamily.regular;
+  }
 }
 
 type TextVariants =
@@ -67,4 +105,25 @@ const $fontSizes: Record<TextVariants, TextStyle> = {
     fontSize: 10,
     lineHeight: 14,
   },
+};
+
+const $fontFamily = {
+  black: 'Kanit-Black',
+  blackItalic: 'Kanit-BlackItalic',
+  bold: 'Kanit-Bold',
+  boldItalic: 'Kanit-BoldItalic',
+  extraBold: 'Kanit-ExtraBold',
+  extraBoldItalic: 'Kanit-ExtraBoldItalic',
+  extraLight: 'Kanit-ExtraLight',
+  extraLightItalic: 'Kanit-ExtraLightItalic',
+  italic: 'Kanit-Italic',
+  light: 'Kanit-Light',
+  lightItalic: 'Kanit-LightItalic',
+  medium: 'Kanit-Medium',
+  mediumItalic: 'Kanit-MediumItalic',
+  regular: 'Kanit-Regular',
+  semiBold: 'Kanit-SemiBold',
+  semiBoldItalic: 'Kanit-SemiBoldItalic',
+  thin: 'Kanit-Thin',
+  thinItalic: 'Kanit-ThinItalic',
 };
