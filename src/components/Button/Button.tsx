@@ -1,11 +1,38 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacityBox, TouchableOpacityBoxProps} from '../Box/Box';
 import {Text} from '../Text/Text';
+import {ButtonPreset, buttonPresets} from './buttonPresets';
+import {ActivityIndicator} from '../ActivityIndicator/ActivityIndicator';
 
-export function Button() {
+interface ButtonProps extends TouchableOpacityBoxProps {
+  title: string;
+  loading?: boolean;
+  preset?: ButtonPreset;
+}
+
+export function Button({
+  title,
+  loading = false,
+  preset = 'primary',
+  ...touchableOpacityBoxProps
+}: ButtonProps) {
+  const buttonPreset = buttonPresets[preset];
   return (
-    <TouchableOpacity>
-      <Text>Hello World!</Text>
-    </TouchableOpacity>
+    <TouchableOpacityBox
+      paddingHorizontal="s20"
+      height={50}
+      alignItems="center"
+      justifyContent="center"
+      borderRadius="s6"
+      {...touchableOpacityBoxProps}
+      {...buttonPreset.container}>
+      {loading ? (
+        <ActivityIndicator color="white" />
+      ) : (
+        <Text preset="paragraphMedium" bold color={buttonPreset.content}>
+          {title}
+        </Text>
+      )}
+    </TouchableOpacityBox>
   );
 }
