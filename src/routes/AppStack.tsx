@@ -8,7 +8,6 @@ import {AppTabBottomTabParamList, AppTabNavigator} from './AppTabNavigator';
 
 export type AppStackParamList = {
   AppTabNavigator: NavigatorScreenParams<AppTabBottomTabParamList>;
-
   ProfileScreen: {
     userId: number;
   };

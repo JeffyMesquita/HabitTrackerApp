@@ -1,9 +1,9 @@
-import {Box} from '@components';
+import {Screen, Text} from '@components';
 
 export function ProfileScreen() {
   return (
-    <Box flex={1} justifyContent="center" alignItems="center">
-      <Box>Profile Screen</Box>
-    </Box>
+    <Screen>
+      <Text preset="headingSmall">Profile Screen</Text>
+    </Screen>
   );
 }

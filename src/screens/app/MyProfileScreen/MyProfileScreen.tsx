@@ -1,9 +1,13 @@
-import {Box} from '@components';
+import {Screen, Text} from '@components';
+import {AppTabScreenProps} from '@routes';
 
-export function MyProfileScreen() {
+export function MyProfileScreen({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  navigation,
+}: AppTabScreenProps<'MyProfileScreen'>) {
   return (
-    <Box flex={1} justifyContent="center" alignItems="center">
-      <Box>My Profile Screen</Box>
-    </Box>
+    <Screen>
+      <Text preset="headingSmall">My Profile Screen</Text>
+    </Screen>
   );
 }

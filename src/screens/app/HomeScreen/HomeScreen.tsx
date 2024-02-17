@@ -1,10 +1,11 @@
-import {Box} from '@components';
+import {Box, Screen, Text} from '@components';
+import {AppTabScreenProps} from '@routes';
 import React from 'react';
 
-export function HomeScreen() {
+export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
   return (
-    <Box flex={1} justifyContent="center" alignItems="center">
-      <Box>Home Screen</Box>
-    </Box>
+    <Screen>
+      <Text preset="headingSmall">Home Screen</Text>
+    </Screen>
   );
 }
