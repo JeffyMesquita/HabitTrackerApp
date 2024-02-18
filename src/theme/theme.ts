@@ -1,7 +1,7 @@
 import {createTheme} from '@shopify/restyle';
 import {ViewStyle} from 'react-native/types';
 
-const palette = {
+export const palette = {
   white: '#FFFFFF',
   black: '#000000',
 

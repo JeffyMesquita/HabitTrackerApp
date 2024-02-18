@@ -1,11 +1,23 @@
+import React from 'react';
 import {Box, Screen, Text} from '@components';
 import {AppTabScreenProps} from '@routes';
-import React from 'react';
+import {useUserProfileInfo} from '@services';
 
 export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
+  const {userProfile, isLoading} = useUserProfileInfo();
+
   return (
-    <Screen>
-      <Text preset="headingSmall">Home Screen</Text>
+    <Screen title="Minhas Tarefas">
+      <Text preset="headingLarge">Bem Vindo!</Text>
+      <Text preset="paragraphLarge" color="neutral700">
+        O que você deseja fazer hoje,{' '}
+        {userProfile?.profile.firstName
+          ? userProfile?.profile.firstName
+          : 'Visitante'}
+        ?
+      </Text>
+
+      {isLoading && !userProfile ? <Text>Carregando...</Text> : <Box></Box>}
     </Screen>
   );
 }

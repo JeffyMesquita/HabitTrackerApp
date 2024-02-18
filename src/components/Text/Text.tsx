@@ -64,7 +64,7 @@ function getFontFamily(
   }
 }
 
-type TextVariants =
+export type TextVariants =
   | 'headingLarge'
   | 'headingMedium'
   | 'headingSmall'
@@ -74,7 +74,7 @@ type TextVariants =
   | 'paragraphCaption'
   | 'paragraphCaptionSmall';
 
-const $fontSizes: Record<TextVariants, TextStyle> = {
+export const $fontSizes: Record<TextVariants, TextStyle> = {
   headingLarge: {
     fontSize: 32,
     lineHeight: 38.4,
@@ -111,7 +111,7 @@ const $fontSizes: Record<TextVariants, TextStyle> = {
   },
 };
 
-const $fontFamily = {
+export const $fontFamily = {
   black: 'Kanit-Black',
   blackItalic: 'Kanit-BlackItalic',
   bold: 'Kanit-Bold',
