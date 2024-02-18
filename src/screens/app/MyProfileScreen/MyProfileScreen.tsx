@@ -6,7 +6,7 @@ export function MyProfileScreen({
   navigation,
 }: AppTabScreenProps<'MyProfileScreen'>) {
   return (
-    <Screen>
+    <Screen isAppStack>
       <Text preset="headingSmall">My Profile Screen</Text>
     </Screen>
   );

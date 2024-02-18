@@ -11,12 +11,14 @@ export interface ScreenProps extends BoxProps {
   canGoBack?: boolean;
   scrollable?: boolean;
   title?: string;
+  isAppStack?: boolean;
 }
 
 export function Screen({
   children,
   canGoBack = false,
   scrollable = false,
+  isAppStack = false,
   title,
   style,
   ...boxProps
@@ -41,7 +43,11 @@ export function Screen({
             style,
           ]}
           {...boxProps}>
-          <ScreenHeader canGoBack={canGoBack} title={title} />
+          <ScreenHeader
+            canGoBack={canGoBack}
+            title={title}
+            isAppStack={isAppStack}
+          />
           {children}
         </Box>
       </Container>

@@ -5,11 +5,11 @@ import {useNavigation} from '@react-navigation/native';
 import {useUserProfileInfo} from '@services';
 import {Image} from 'react-native';
 
-type Props = Pick<ScreenProps, 'canGoBack' | 'title'>;
+type Props = Pick<ScreenProps, 'canGoBack' | 'title' | 'isAppStack'>;
 
 const ICON_SIZE = 20;
 
-export function ScreenHeader({canGoBack, title}: Props) {
+export function ScreenHeader({canGoBack, title, isAppStack = false}: Props) {
   const {userProfile} = useUserProfileInfo();
   const navigation = useNavigation();
 
@@ -40,7 +40,7 @@ export function ScreenHeader({canGoBack, title}: Props) {
         </Text>
       )}
       {title && <Box width={ICON_SIZE} />}
-      {!userProfile?.profile.avatarUrl ? (
+      {isAppStack && !userProfile?.profile.avatarUrl && (
         <Box
           backgroundColor="primary"
           height={48}
@@ -57,7 +57,8 @@ export function ScreenHeader({canGoBack, title}: Props) {
             {userProfile?.profile.firstName.charAt(0).toUpperCase()}
           </Text>
         </Box>
-      ) : (
+      )}
+      {isAppStack && userProfile?.profile.avatarUrl && (
         <Box
           height={48}
           width={48}

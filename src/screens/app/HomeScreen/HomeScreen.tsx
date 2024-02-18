@@ -7,7 +7,7 @@ export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
   const {userProfile, isLoading} = useUserProfileInfo();
 
   return (
-    <Screen title="Minhas Tarefas">
+    <Screen title="Minhas Tarefas" isAppStack>
       <Text preset="headingLarge">Bem Vindo!</Text>
       <Text preset="paragraphLarge" color="neutral700">
         O que você deseja fazer hoje,{' '}
