@@ -8,7 +8,6 @@ export function FormPinInput<FormType extends FieldValues>({
   control,
   name,
   rules,
-  ref,
   ...pinInputProps
 }: PinInputProps & UseControllerProps<FormType>) {
   return (
@@ -18,7 +17,6 @@ export function FormPinInput<FormType extends FieldValues>({
       rules={rules}
       render={({field, fieldState}) => (
         <PinInput
-          ref={ref}
           value={field.value}
           onChangeText={field.onChange}
           hasError={!!fieldState.error?.message}

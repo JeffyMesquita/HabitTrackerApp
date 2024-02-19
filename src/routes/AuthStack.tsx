@@ -35,6 +35,7 @@ export function AuthStack() {
         headerShown: false,
         fullScreenGestureEnabled: true,
         contentStyle: {backgroundColor: colors.background},
+        animation: 'slide_from_right',
       }}>
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />

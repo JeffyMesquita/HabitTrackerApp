@@ -9,10 +9,12 @@ import {useAppTheme} from '@hooks';
 
 export interface PinInputProps extends RNTextInputProps {
   hasError?: boolean;
-  ref?: React.Ref<RNTextInput>;
 }
 
-export function PinInput({hasError, ref, ...rNTextInputProps}: PinInputProps) {
+export function PinInputRef(
+  {hasError, ...rNTextInputProps}: PinInputProps,
+  ref: React.Ref<RNTextInput>,
+) {
   const {colors} = useAppTheme();
 
   const $boxInputStyles: BoxProps = {
@@ -43,3 +45,7 @@ const $textInputStyles: TextStyle = {
   fontWeight: 'bold',
   textAlign: 'center',
 };
+
+export const PinInput = React.forwardRef<RNTextInput, PinInputProps>(
+  PinInputRef,
+);

@@ -12,7 +12,11 @@ async function register(
   password: string,
   firstName: string,
 ): Promise<RegisterAPI> {
-  const response = await api.post('user/register', {email, password});
+  const response = await api.post('user/register', {
+    email,
+    password,
+    firstName,
+  });
 
   return response.data;
 }
