@@ -3,15 +3,15 @@ import {useAuthCredentials} from '@services';
 import {useMutation} from '@tanstack/react-query';
 
 import {authService} from '../authService';
-import {AuthCredentials} from '../authTypes';
+import {AuthCredentials, AuthCredentialsData} from '../authTypes';
 interface Variables {
   email: string;
   password: string;
 }
 
-export function useAuthSignIn(options?: MutationOptions<AuthCredentials>) {
+export function useAuthSignIn(options?: MutationOptions<AuthCredentialsData>) {
   const {saveCredentials} = useAuthCredentials();
-  const mutation = useMutation<AuthCredentials, Error, Variables>({
+  const mutation = useMutation<AuthCredentialsData, Error, Variables>({
     mutationFn: ({email, password}) => authService.signIn(email, password),
     retry: false,
     onError: error => {
@@ -20,7 +20,7 @@ export function useAuthSignIn(options?: MutationOptions<AuthCredentials>) {
       }
     },
     onSuccess: authCredentials => {
-      authService.updateToken(authCredentials.token);
+      // authService.updateToken(authCredentials.token);
       saveCredentials(authCredentials);
     },
   });

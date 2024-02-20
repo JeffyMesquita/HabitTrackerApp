@@ -19,13 +19,20 @@ export function useAuthConfirmEmail(
         options.onError(error.message);
       }
     },
-    onSuccess: () => {
-      authService.removeToken();
+    onSuccess: confirmEmail => {
+      if (confirmEmail.data?.confirmed) {
+        authService.removeToken();
+      }
+
+      if (confirmEmail.data?.token) {
+        authService.updateToken(confirmEmail.data.token);
+      }
     },
   });
 
   return {
     isLoading: mutation.isLoading,
     confirmEmail: (variables: Variables) => mutation.mutate(variables),
+    result: mutation.data,
   };
 }

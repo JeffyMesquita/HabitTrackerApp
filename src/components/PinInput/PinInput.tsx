@@ -4,8 +4,10 @@ import {
   TextInputProps as RNTextInputProps,
   TextStyle,
 } from 'react-native';
-import {Box, BoxProps} from '../Box/Box';
+
 import {useAppTheme} from '@hooks';
+
+import {Box, BoxProps} from '../Box/Box';
 
 export interface PinInputProps extends RNTextInputProps {
   hasError?: boolean;

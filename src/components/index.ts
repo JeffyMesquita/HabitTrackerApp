@@ -11,3 +11,4 @@ export * from './PinInput/PinInput';
 export * from './Screen/Screen';
 export * from './Text/Text';
 export * from './TextInput/TextInput';
+export * from './Toast/Toast';

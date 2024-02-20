@@ -1,22 +1,23 @@
 import React, {useEffect} from 'react';
 
+import {ActivityIndicator, Box} from '@components';
+import {useUserProfile} from '@domain';
+import {useAppTheme} from '@hooks';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import {useAuthCredentials, useToastService} from '@services';
 
 import {AppStack} from './AppStack';
 import {AuthStack} from './AuthStack';
-import {useAppTheme} from '@hooks';
-import {useAuthCredentials, useToastService} from '@services';
-import {useUserProfile} from '@domain';
 
 export function Router() {
-  const {authCredentials} = useAuthCredentials();
+  const {authCredentials, isLoading} = useAuthCredentials();
   const {showToast} = useToastService();
   const {me} = useUserProfile({
     onError: message => showToast({message, type: 'error'}),
   });
 
   useEffect(() => {
-    if (authCredentials) me();
+    if (authCredentials) {me();}
   }, [authCredentials]);
 
   const {colors} = useAppTheme();
@@ -28,6 +29,18 @@ export function Router() {
       background: colors.background,
     },
   };
+
+  if (isLoading) {
+    return (
+      <Box
+        flex={1}
+        justifyContent="center"
+        alignItems="center"
+        backgroundColor="background">
+        <ActivityIndicator size="large" />
+      </Box>
+    );
+  }
 
   return (
     <NavigationContainer theme={myTheme}>

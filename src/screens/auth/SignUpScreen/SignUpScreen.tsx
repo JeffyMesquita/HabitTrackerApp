@@ -2,18 +2,16 @@ import {
   Button,
   FormPasswordInput,
   FormTextInput,
-  Icon,
   Screen,
   Text,
-  TextInput,
 } from '@components';
-import {useResetNavigationSuccess} from '@hooks';
-import {useForm} from 'react-hook-form';
-import {SignUpSchema, signUpSchema} from './SignUpSchema';
-import {zodResolver} from '@hookform/resolvers/zod';
 import {useAuthRegister} from '@domain';
+import {zodResolver} from '@hookform/resolvers/zod';
 import {useNavigation} from '@react-navigation/native';
 import {useToastService} from '@services';
+import {useForm} from 'react-hook-form';
+
+import {SignUpSchema, signUpSchema} from './SignUpSchema';
 
 export function SignUpScreen() {
   const {showToast} = useToastService();

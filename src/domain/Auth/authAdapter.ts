@@ -1,15 +1,17 @@
 import {
-  AuthCredentials,
   AuthCredentialsAPI,
-  RegisterCredentials,
+  AuthCredentialsData,
   RegisterAPI,
+  RegisterCredentials,
 } from './authTypes';
 
 function toAuthCredentials(
   authCredentialsAPI: AuthCredentialsAPI,
-): AuthCredentials {
+): AuthCredentialsData {
   return {
     token: authCredentialsAPI.data.token,
+    refreshToken: authCredentialsAPI.data.refreshToken,
+    expires: authCredentialsAPI.data.expires,
   };
 }
 

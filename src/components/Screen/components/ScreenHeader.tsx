@@ -1,9 +1,9 @@
 import React from 'react';
+import {Image} from 'react-native';
 
 import {Box, Icon, ScreenProps, Text, TouchableOpacityBox} from '@components';
 import {useNavigation} from '@react-navigation/native';
 import {useUserProfileInfo} from '@services';
-import {Image} from 'react-native';
 
 type Props = Pick<ScreenProps, 'canGoBack' | 'title' | 'isAppStack'>;
 

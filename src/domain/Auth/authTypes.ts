@@ -3,7 +3,15 @@ export interface AuthCredentialsAPI {
   code: string;
   data: {
     token: string;
+    refreshToken: string;
+    expires: string;
   };
+}
+
+export interface AuthCredentialsData {
+  token: string;
+  refreshToken: string;
+  expires: string;
 }
 
 export interface SignOutAPI {
@@ -14,6 +22,11 @@ export interface SignOutAPI {
 export interface ConfirmEmailAPI {
   message: string;
   code: string;
+  data: {
+    attempts?: number;
+    token?: string;
+    confirmed?: boolean;
+  };
 }
 
 export interface RegisterAPI {

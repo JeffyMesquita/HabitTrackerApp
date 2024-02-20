@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {Box, Screen, Text} from '@components';
 import {AppTabScreenProps} from '@routes';
 import {useUserProfileInfo} from '@services';
@@ -17,7 +18,7 @@ export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
         ?
       </Text>
 
-      {isLoading && !userProfile ? <Text>Carregando...</Text> : <Box></Box>}
+      {isLoading && !userProfile ? <Text>Carregando...</Text> : <Box />}
     </Screen>
   );
 }

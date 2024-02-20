@@ -3,7 +3,7 @@ import {api} from '@api';
 import {authAdapter} from './authAdapter';
 import {authApi} from './authApi';
 import {
-  AuthCredentials,
+  AuthCredentialsData,
   ConfirmEmailAPI,
   RegisterCredentials,
   SignOutAPI,
@@ -18,7 +18,8 @@ async function register(
     const registerAPI = await authApi.register(email, password, firstName);
     return authAdapter.toRegisterCredentials(registerAPI);
   } catch (error) {
-    throw new Error('email já cadastrado');
+    console.log('error', error);
+    throw new Error('Não foi possível realizar o cadastro');
   }
 }
 
@@ -30,7 +31,7 @@ async function confirmEmail(code: string): Promise<ConfirmEmailAPI> {
 async function signIn(
   email: string,
   password: string,
-): Promise<AuthCredentials> {
+): Promise<AuthCredentialsData> {
   try {
     const authCredentialsAPI = await authApi.signIn(email, password);
 
@@ -53,6 +54,13 @@ function removeToken() {
   api.defaults.headers.common.Authorization = null;
 }
 
+async function authenticateByRefreshToken(
+  refreshToken: string,
+): Promise<AuthCredentialsData> {
+  const acAPI = await authApi.refreshToken(refreshToken);
+  return authAdapter.toAuthCredentials(acAPI);
+}
+
 export const authService = {
   register,
   signIn,
@@ -60,4 +68,6 @@ export const authService = {
   signOut,
   updateToken,
   removeToken,
+  authenticateByRefreshToken,
+  isRefreshTokenRequest: authApi.isRefreshTokenRequest,
 };

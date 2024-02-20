@@ -1,12 +1,13 @@
 import React from 'react';
+
 import {
   BottomTabBarProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
+import {HomeScreen, MyProfileScreen} from '@screens';
 
 import {AppTabBar} from './AppTabBar';
 
-import {HomeScreen, MyProfileScreen} from '@screens';
 
 export type AppTabBottomTabParamList = {
   HomeScreen: undefined;

@@ -1,13 +1,27 @@
-import {Box, Button, FormPinInput, PinInput, Screen, Text} from '@components';
-import {AuthScreenProps} from '@routes';
-import {Controller, useForm} from 'react-hook-form';
-import {ConfirmEmailSchema, confirmEmailSchema} from './ConfirmEmailSchema';
-import {zodResolver} from '@hookform/resolvers/zod';
-import {useCallback, useRef, useState} from 'react';
-import {TextInput as RNTextInput, Keyboard} from 'react-native';
-import {useResetNavigationSuccess} from '@hooks';
+import {useEffect, useRef} from 'react';
+import {Keyboard, TextInput as RNTextInput} from 'react-native';
+
+import {Box, Button, PinInput, Screen, Text} from '@components';
 import {useAuthConfirmEmail} from '@domain';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {useResetNavigationSuccess} from '@hooks';
+import {AuthScreenProps} from '@routes';
 import {useToastService} from '@services';
+import {Controller, useForm} from 'react-hook-form';
+
+
+import {ConfirmEmailSchema, confirmEmailSchema} from './ConfirmEmailSchema';
+
+type field = 'code1' | 'code2' | 'code3' | 'code4' | 'code5' | 'code6';
+
+const defaultValues = {
+  code1: '',
+  code2: '',
+  code3: '',
+  code4: '',
+  code5: '',
+  code6: '',
+};
 
 export function ConfirmEmailScreen({
   navigation,
@@ -17,26 +31,15 @@ export function ConfirmEmailScreen({
 
   const inputRefs = useRef<(RNTextInput | null)[]>([]);
 
-  const {isLoading, confirmEmail} = useAuthConfirmEmail({
+  const {isLoading, confirmEmail, result} = useAuthConfirmEmail({
     onError: message => showToast({message, type: 'error'}),
-    onSuccess: () => showToast({message: 'E-mail confirmado com sucesso!'}),
   });
 
-  const {control, formState, handleSubmit, setValue} =
-    useForm<ConfirmEmailSchema>({
-      resolver: zodResolver(confirmEmailSchema),
-      defaultValues: {
-        code1: '',
-        code2: '',
-        code3: '',
-        code4: '',
-        code5: '',
-        code6: '',
-      },
-      mode: 'onChange',
-    });
-
-  type field = 'code1' | 'code2' | 'code3' | 'code4' | 'code5' | 'code6';
+  const {control, formState, handleSubmit} = useForm<ConfirmEmailSchema>({
+    resolver: zodResolver(confirmEmailSchema),
+    defaultValues,
+    mode: 'onChange',
+  });
 
   function submitForm({
     code1,
@@ -49,17 +52,46 @@ export function ConfirmEmailScreen({
     const code = `${code1}${code2}${code3}${code4}${code5}${code6}`;
 
     confirmEmail({code});
-
-    reset({
-      title: `Seu e-mail foi confirmado com sucesso!`,
-      description:
-        'Agora você já pode fazer login e aproveitar todos os recursos do app.',
-      icon: {
-        name: 'checkRound',
-        color: 'success',
-      },
-    });
   }
+
+  useEffect(() => {
+    if (result?.data?.token) {
+      showToast({
+        message: 'Um novo e-mail de confirmação foi enviado.',
+        type: 'error',
+        duration: 3500,
+      });
+    }
+  }, [result]);
+
+  useEffect(() => {
+    if (result?.data?.attempts) {
+      showToast({
+        message: `Código inválido. você usou ${result.data.attempts} de 3 tentativas.`,
+        type: 'error',
+        duration: 3500,
+      });
+    }
+  }, [result]);
+
+  useEffect(() => {
+    if (result?.data?.confirmed) {
+      showToast({
+        message: 'Cadastro confirmado',
+        type: 'success',
+        duration: 3500,
+      });
+      reset({
+        title: 'Seu e-mail foi confirmado com sucesso!',
+        description:
+          'Agora você já pode fazer login e aproveitar todos os recursos do app.',
+        icon: {
+          name: 'checkRound',
+          color: 'success',
+        },
+      });
+    }
+  }, [result, reset, showToast]);
 
   return (
     <Screen canGoBack>
@@ -111,6 +143,7 @@ export function ConfirmEmailScreen({
       </Box>
 
       <Button
+        loading={isLoading}
         title="Confirmar"
         mt="s48"
         disabled={!formState.isValid}

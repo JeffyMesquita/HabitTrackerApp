@@ -1,8 +1,8 @@
 import React from 'react';
 
 import {IconBase} from '@components';
-import {Svg, Path, Circle} from 'react-native-svg';
 import {palette} from '@theme';
+import {Svg, Path, Circle} from 'react-native-svg';
 
 export function ErrorRoundIcon({size = 48, color = palette.red500}: IconBase) {
   return (

@@ -1,10 +1,10 @@
 import {MutationOptions} from '@infra';
-
+import {useUserProfileInfo} from '@services';
 import {useMutation} from '@tanstack/react-query';
 
 import {userService} from '../userService';
 import {UserApi} from '../userTypes';
-import {useUserProfileInfo} from '@services';
+
 
 export function useUserProfile(options?: MutationOptions<UserApi>) {
   const {saveUserProfile} = useUserProfileInfo();

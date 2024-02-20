@@ -1,22 +1,33 @@
 import React from 'react';
+
+import {Toast} from '@components';
+import {Router} from '@routes';
+import {
+  AuthCredentialsProvider,
+  MMKVStorage,
+  initializeStorage,
+} from '@services';
+import {ThemeProvider} from '@shopify/restyle';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {theme} from '@theme';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-import {Router} from '@routes';
-import {ThemeProvider} from '@shopify/restyle';
-import {theme} from '@theme';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
+initializeStorage(MMKVStorage);
 
 function App(): React.JSX.Element {
   return (
-    <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>
-        <ThemeProvider theme={theme}>
-          <Router />
-        </ThemeProvider>
-      </SafeAreaProvider>
-    </QueryClientProvider>
+    <AuthCredentialsProvider>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <ThemeProvider theme={theme}>
+            <Router />
+            <Toast />
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </QueryClientProvider>
+    </AuthCredentialsProvider>
   );
 }
 

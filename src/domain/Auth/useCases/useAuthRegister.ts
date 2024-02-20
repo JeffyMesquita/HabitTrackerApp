@@ -2,7 +2,7 @@ import {MutationOptions} from '@infra';
 import {useMutation} from '@tanstack/react-query';
 
 import {authService} from '../authService';
-import {AuthCredentials} from '../authTypes';
+import {RegisterCredentials} from '../authTypes';
 
 interface Variables {
   email: string;
@@ -10,8 +10,10 @@ interface Variables {
   firstName: string;
 }
 
-export function useAuthRegister(options?: MutationOptions<AuthCredentials>) {
-  const mutation = useMutation<AuthCredentials, Error, Variables>({
+export function useAuthRegister(
+  options?: MutationOptions<RegisterCredentials>,
+) {
+  const mutation = useMutation<RegisterCredentials, Error, Variables>({
     mutationFn: ({email, password, firstName}) =>
       authService.register(email, password, firstName),
     retry: false,

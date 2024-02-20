@@ -4,3 +4,4 @@ export * from './useCases/useAuthSignOut';
 export * from './useCases/useAuthConfirmEmail';
 
 export * from './authTypes.ts';
+export * from './authService.ts';

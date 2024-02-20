@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {IconProps} from '@components';
+import {useAppTheme} from '@hooks';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   LoginScreen,
@@ -9,7 +10,6 @@ import {
   ConfirmEmailScreen,
   SuccessScreen,
 } from '@screens';
-import {useAppTheme} from '@hooks';
 
 export type AuthStackParamList = {
   LoginScreen: undefined;

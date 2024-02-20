@@ -5,12 +5,13 @@ import {
   Screen,
   Text,
 } from '@components';
+import {useAuthSignIn} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {AuthScreenProps} from '@routes';
-import {useForm} from 'react-hook-form';
-import {LoginSchema, loginSchema} from './LoginSchema';
-import {useAuthSignIn} from '@domain';
 import {useToastService} from '@services';
+import {useForm} from 'react-hook-form';
+
+import {LoginSchema, loginSchema} from './LoginSchema';
 
 export function LoginScreen({navigation}: AuthScreenProps<'LoginScreen'>) {
   const {showToast} = useToastService();
