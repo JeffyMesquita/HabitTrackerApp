@@ -1,6 +1,8 @@
 import {
   AuthCredentialsAPI,
   AuthCredentialsData,
+  ForgotPasswordAPI,
+  ForgotPasswordData,
   RegisterAPI,
   RegisterCredentials,
 } from './authTypes';
@@ -21,4 +23,16 @@ function toRegisterCredentials(registerAPI: RegisterAPI): RegisterCredentials {
   };
 }
 
-export const authAdapter = {toAuthCredentials, toRegisterCredentials};
+function toForgotPasswordCredentials(
+  forgotPasswordAPI: ForgotPasswordAPI,
+): ForgotPasswordData {
+  return {
+    token: forgotPasswordAPI.data.token,
+  };
+}
+
+export const authAdapter = {
+  toAuthCredentials,
+  toRegisterCredentials,
+  toForgotPasswordCredentials,
+};

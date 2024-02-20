@@ -9,7 +9,6 @@ import {AuthScreenProps} from '@routes';
 import {useToastService} from '@services';
 import {Controller, useForm} from 'react-hook-form';
 
-
 import {ConfirmEmailSchema, confirmEmailSchema} from './ConfirmEmailSchema';
 
 type field = 'code1' | 'code2' | 'code3' | 'code4' | 'code5' | 'code6';
@@ -23,9 +22,7 @@ const defaultValues = {
   code6: '',
 };
 
-export function ConfirmEmailScreen({
-  navigation,
-}: AuthScreenProps<'ConfirmEmailScreen'>) {
+export function ConfirmEmailScreen({}: AuthScreenProps<'ConfirmEmailScreen'>) {
   const {reset} = useResetNavigationSuccess();
   const {showToast} = useToastService();
 

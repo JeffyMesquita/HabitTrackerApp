@@ -3,7 +3,7 @@ import {useAuthCredentials} from '@services';
 import {useMutation} from '@tanstack/react-query';
 
 import {authService} from '../authService';
-import {AuthCredentials, AuthCredentialsData} from '../authTypes';
+import {AuthCredentialsData} from '../authTypes';
 interface Variables {
   email: string;
   password: string;

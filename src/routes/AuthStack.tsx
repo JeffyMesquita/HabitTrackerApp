@@ -9,6 +9,7 @@ import {
   ForgotPasswordScreen,
   ConfirmEmailScreen,
   SuccessScreen,
+  ResetPasswordScreen,
 } from '@screens';
 
 export type AuthStackParamList = {
@@ -16,6 +17,9 @@ export type AuthStackParamList = {
   SignUpScreen: undefined;
   ConfirmEmailScreen: undefined;
   ForgotPasswordScreen: undefined;
+  ResetPasswordScreen: {
+    email: string;
+  };
   SuccessScreen: {
     title: string;
     description: string;
@@ -39,6 +43,10 @@ export function AuthStack() {
       }}>
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+      <Stack.Screen
+        name="ResetPasswordScreen"
+        component={ResetPasswordScreen}
+      />
       <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
       <Stack.Screen name="ConfirmEmailScreen" component={ConfirmEmailScreen} />
       <Stack.Screen

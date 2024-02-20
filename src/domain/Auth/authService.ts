@@ -5,7 +5,9 @@ import {authApi} from './authApi';
 import {
   AuthCredentialsData,
   ConfirmEmailAPI,
+  ForgotPasswordData,
   RegisterCredentials,
+  ResetPasswordAPI,
   SignOutAPI,
 } from './authTypes';
 
@@ -41,6 +43,29 @@ async function signIn(
   }
 }
 
+async function isEmailAvailable(email: string): Promise<boolean> {
+  const {isAvailable} = await authApi.isEmailAvailable({email});
+  return isAvailable;
+}
+
+async function forgotPassword(email: string): Promise<ForgotPasswordData> {
+  const response = await authApi.forgotPassword(email);
+  return authAdapter.toForgotPasswordCredentials(response);
+}
+
+async function resetPassword(
+  email: string,
+  tempPassword: string,
+  newPassword: string,
+): Promise<ResetPasswordAPI> {
+  const response = await authApi.resetPassword(
+    email,
+    tempPassword,
+    newPassword,
+  );
+  return response;
+}
+
 async function signOut(): Promise<SignOutAPI> {
   const response = await authApi.signOut();
   return response;
@@ -65,6 +90,9 @@ export const authService = {
   register,
   signIn,
   confirmEmail,
+  forgotPassword,
+  resetPassword,
+  isEmailAvailable,
   signOut,
   updateToken,
   removeToken,

@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Button,
   FormPasswordInput,
   FormTextInput,
@@ -12,6 +13,7 @@ import {useToastService} from '@services';
 import {useForm} from 'react-hook-form';
 
 import {SignUpSchema, signUpSchema} from './SignUpSchema';
+import {useAsyncValidation} from './useAsyncValidation';
 
 export function SignUpScreen() {
   const {showToast} = useToastService();
@@ -22,16 +24,17 @@ export function SignUpScreen() {
     onError: message => showToast({message, type: 'error'}),
   });
 
-  const {control, formState, handleSubmit} = useForm<SignUpSchema>({
-    resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      firstName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-    mode: 'onChange',
-  });
+  const {control, formState, handleSubmit, watch, getFieldState} =
+    useForm<SignUpSchema>({
+      resolver: zodResolver(signUpSchema),
+      defaultValues: {
+        firstName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      },
+      mode: 'onChange',
+    });
 
   function submitForm({email, password, firstName}: SignUpSchema) {
     register({
@@ -42,6 +45,11 @@ export function SignUpScreen() {
 
     navigation.navigate('ConfirmEmailScreen');
   }
+
+  const {emailValidation} = useAsyncValidation({
+    watch,
+    getFieldState,
+  });
 
   return (
     <Screen canGoBack scrollable>
@@ -68,9 +76,15 @@ export function SignUpScreen() {
         name="email"
         label="E-mail"
         placeholder="Digite seu e-mail"
+        errorMessage={emailValidation.errorMessage}
         boxProps={{
           mb: 's20',
         }}
+        RightComponent={
+          emailValidation.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
+        }
       />
 
       <FormPasswordInput
@@ -97,7 +111,7 @@ export function SignUpScreen() {
         title="Criar sua conta"
         mt="s48"
         loading={isLoading}
-        disabled={!formState.isValid}
+        disabled={!formState.isValid || emailValidation.notReady}
         onPress={handleSubmit(submitForm)}
       />
     </Screen>

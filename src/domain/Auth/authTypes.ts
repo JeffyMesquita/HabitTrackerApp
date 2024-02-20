@@ -19,6 +19,11 @@ export interface SignOutAPI {
   code: string;
 }
 
+export interface FieldIsAvailableAPI {
+  message: string;
+  isAvailable: boolean;
+}
+
 export interface ConfirmEmailAPI {
   message: string;
   code: string;
@@ -37,11 +42,28 @@ export interface RegisterAPI {
   };
 }
 
+export interface ForgotPasswordAPI {
+  message: string;
+  code: string;
+  data: {
+    token: string;
+  };
+}
+
+export interface ResetPasswordAPI {
+  message: string;
+  code: string;
+}
+
 export interface RegisterCredentials {
   token: string;
 }
 
 export interface AuthCredentials {
+  token: string;
+}
+
+export interface ForgotPasswordData {
   token: string;
 }
 

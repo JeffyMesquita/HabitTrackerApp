@@ -53,7 +53,8 @@ export function TextInput({
             ref={inputRef}
             placeholderTextColor={colors.neutral700}
             style={[$textInputStyles, {color: colors.neutral400}]}
-            {...rNTextInputProps} />
+            {...rNTextInputProps}
+          />
           {RightComponent && (
             <Box justifyContent="center" alignItems="center" ml="s16">
               {RightComponent}
