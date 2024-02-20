@@ -17,7 +17,9 @@ export function Router() {
   });
 
   useEffect(() => {
-    if (authCredentials) {me();}
+    if (authCredentials !== null) {
+      me();
+    }
   }, [authCredentials]);
 
   const {colors} = useAppTheme();

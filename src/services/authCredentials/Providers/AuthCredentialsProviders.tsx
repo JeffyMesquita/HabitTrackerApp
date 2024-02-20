@@ -40,6 +40,7 @@ export function AuthCredentialsProvider({
     authService.updateToken(ac.token);
     authCredentialsStorage.set(ac);
     setAuthCredentials(ac);
+    setIsLoading(false);
   }
 
   async function removeCredentials(): Promise<void> {
@@ -49,7 +50,7 @@ export function AuthCredentialsProvider({
   }
 
   useEffect(() => {
-    authCredentialsStorage.remove();
+    // authCredentialsStorage.remove();
     startAuthCredentials();
   }, []);
 

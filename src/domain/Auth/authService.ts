@@ -20,7 +20,6 @@ async function register(
     const registerAPI = await authApi.register(email, password, firstName);
     return authAdapter.toRegisterCredentials(registerAPI);
   } catch (error) {
-    console.log('error', error);
     throw new Error('Não foi possível realizar o cadastro');
   }
 }

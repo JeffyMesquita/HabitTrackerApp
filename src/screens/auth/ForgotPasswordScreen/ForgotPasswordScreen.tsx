@@ -22,8 +22,6 @@ export function ForgotPasswordScreen({
     onError: message => showToast({message, type: 'error'}),
   });
 
-  console.log(result);
-
   const {control, formState, handleSubmit, watch} =
     useForm<ForgotPasswordSchema>({
       resolver: zodResolver(forgotPasswordSchema),
